@@ -44,3 +44,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+.active {
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+}

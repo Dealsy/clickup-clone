@@ -13,14 +13,14 @@ export default function BoardGroups() {
   if (isError) return <div>Error</div>
 
   return (
-    <>
+    <div className="flex flex-row gap-4">
       {isFetching && <div>Loading...</div>}
       {data?.map(board => (
         <div
           key={board.id}
-          className={`w-[360px] rounded-lg ${board.boardColour} bg-opacity-5 p-2`}>
+          className={`h-[100px] min-w-[360px] rounded-lg ${board.boardColour} bg-opacity-5 p-1`}>
           <Pill className={`${board.boardColour} bg-opacity-90`}>{board.statusName}</Pill>
-
+          {/* Future task rendering can be done here */}
           <Button
             className={cn(
               'bg-inherit/20 mt-2 w-full text-left text-base text-gray-500',
@@ -30,6 +30,6 @@ export default function BoardGroups() {
           </Button>
         </div>
       ))}
-    </>
+    </div>
   )
 }
