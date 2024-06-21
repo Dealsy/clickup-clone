@@ -53,8 +53,8 @@ export default function Board() {
   }, [])
 
   return (
-    <div className="flex h-screen flex-col">
-      <div className="flex h-full flex-row gap-4 overflow-x-auto" ref={containerRef}>
+    <div className="flex h-full flex-col">
+      <div className="flex h-full flex-row gap-4 overflow-x-auto pr-40" ref={containerRef}>
         <BoardGroups />
         <StatusGroup />
       </div>
