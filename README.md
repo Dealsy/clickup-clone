@@ -33,7 +33,3 @@ export default async function Home() {
 ## What's next?
 
 I'm not to sure, I'm deciding on whether to continue with this project or not, I do want to create something using tRPC server side. Which might be done in a new project rather than trying to refactor this one.
-
-```
-
-```
