@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc'
-import { boardGroup } from '@/server/db/schema'
+import { boardGroup, task } from '@/server/db/schema'
 import { eq } from 'drizzle-orm'
 
 export const boardRouter = createTRPCRouter({
@@ -20,6 +20,15 @@ export const boardRouter = createTRPCRouter({
         .update(boardGroup)
         .set({ statusName: input.name })
         .where(eq(boardGroup.id, input.id))
+    }),
+
+  deleteGroupAndTasks: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.transaction(async trx => {
+        await trx.delete(task).where(eq(task.boardGroupId, input.id))
+        await trx.delete(boardGroup).where(eq(boardGroup.id, input.id))
+      })
     }),
 
   getBoardGroups: publicProcedure.query(({ ctx }) => {

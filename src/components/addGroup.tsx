@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Button } from './ui/button'
 import { Plus } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -17,6 +17,8 @@ export default function StatusGroup() {
   const [statusName, setStatusName] = useState('')
   const [selectedColor, setSelectedColor] = useState('')
   const [errors, setErrors] = useState<string[]>([])
+
+  const formRef = useRef<HTMLDivElement | null>(null)
 
   const queryClient = useQueryClient()
 
@@ -61,6 +63,19 @@ export default function StatusGroup() {
     createBoardGroup.mutate({ name: statusName, boardColour: selectedColor })
   }
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (formRef.current && !formRef.current.contains(event.target as Node)) {
+        setIsAdding(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [formRef])
+
   return (
     <div className="flex w-[250px] flex-col">
       <Button
@@ -69,9 +84,9 @@ export default function StatusGroup() {
         <Plus /> Add group
       </Button>
 
-      <form className="rounded-lg bg-background" onSubmit={handleSubmit}>
-        {isAdding && (
-          <div className="w-[250px]">
+      {isAdding && (
+        <div ref={formRef} className="w-[250px]">
+          <form className="rounded-lg bg-background" onSubmit={handleSubmit}>
             <input
               type="text"
               value={statusName}
@@ -105,9 +120,9 @@ export default function StatusGroup() {
             <Button variant={'save'} type="submit">
               Save
             </Button>
-          </div>
-        )}
-      </form>
+          </form>
+        </div>
+      )}
     </div>
   )
 }
