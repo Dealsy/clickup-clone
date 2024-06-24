@@ -134,9 +134,9 @@ export default function BoardGroups() {
 
   const taskNameError = taskErrors.length > 0 && taskErrors[0]
 
-  if (isFetching || isLoading) return <GroupSkeleton />
+  if (isLoading) return <GroupSkeleton />
   if (isError) return <div>Error</div>
-  if (isTaskFetching || isTaskLoading) return <div>Loading...</div>
+  if (isTaskLoading) return <div>Loading...</div>
   if (isTaskError) return <div>Error</div>
 
   return (
