@@ -117,8 +117,8 @@ export default function StatusGroup() {
                 ))}
               </div>
             )}
-            <Button variant={'save'} type="submit">
-              Save
+            <Button variant={'save'} type="submit" disabled={createBoardGroup.isPending}>
+              {createBoardGroup.isPending ? 'Saving...' : 'Save'}
             </Button>
           </form>
         </div>

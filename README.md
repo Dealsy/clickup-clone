@@ -1,29 +1,39 @@
-# Create T3 App
+# Clickup Board clone
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
-## What's next? How do I make an app with this?
+The idea of this project is to create a clone of the Clickup board app, to help me learn tRPC with React Query in Next JS, with Drizzle as the ORM.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Learnings
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- I learned in this app, that tRPC can be called in the server with a form action, however I didn't realise this until I had finished.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+You can call tRPC in a server side component like this
 
-## Learn More
+```tsx
+import { api } from '@/trpc/server'
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+export default async function Home() {
+  const posts = await api.post.getLatest()
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+  return (
+    <main>
+      {posts.map(post => (
+        <div key={post.id}>
+          <p>{post.name}</p>
+        </div>
+      ))}
+    </main>
+  )
+}
+```
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+- I learned that Drizzle is fantastic, and I'm now using it in my projects, Type safe queries and mutations and a nice ORM, The studio is also really nice. This makes SQL easy.
 
-## How do I deploy this?
+## What's next?
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+I'm not to sure, I'm deciding on whether to continue with this project or not, I do want to create something using tRPC server side. Which might be done in a new project rather than trying to refactor this one.
+
+```
+
+```
